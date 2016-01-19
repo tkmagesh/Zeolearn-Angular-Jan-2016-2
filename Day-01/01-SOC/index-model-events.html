@@ -39,21 +39,28 @@
                 if (_data[attrName] === value) return;
                 _data[attrName] = value;
                 //trigger change notification for 'attrName'
-                var listenerFn = _eventHandlers[attrName];
-                if (typeof listenerFn === 'function')
-                    listenerFn();
+                /*var listenerFns = _eventHandlers[attrName];
+                for(var i=0; i<listenerFns.length; i++){
+                    var listenerFn = listenerFns[i];
+                    if (typeof listenerFn === 'function')
+                        listenerFn();
+                }*/
+                _eventHandlers[attrName].forEach(function(listenerFn){
+                    if (typeof listenerFn === 'function')
+                        listenerFn();
+                });
             };
 
             var _eventHandlers = {
-                basic : null,
-                hra : null,
-                da : null,
-                tax : null,
-                salary : null
+                basic : [],
+                hra : [],
+                da : [],
+                tax : [],
+                salary : []
             };
 
             this.addChangeListener = function(attrName, listenerFn){
-                _eventHandlers[attrName] = listenerFn;
+                 _eventHandlers[attrName].push( listenerFn );
             }
 
         }
