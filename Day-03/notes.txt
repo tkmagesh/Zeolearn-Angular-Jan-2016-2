@@ -1,0 +1,18 @@
+Angular Building Blocks
+
+1. Module
+    - Logical container for angular components
+    - Dependency Injection container (Registry of components)
+    
+2. Scope
+    
+3. Directive
+    - Connects HTML DOM with Angular scope
+    
+4. Filter
+    - Transforms the data for presentation purpose
+    
+5. Controller
+    - Function to configure the scope object
+    
+    
