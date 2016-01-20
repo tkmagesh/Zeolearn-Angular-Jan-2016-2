@@ -3,7 +3,9 @@ Angular Building Blocks
 1. Module
     - Logical container for angular components
     - Dependency Injection container (Registry of components)
-    
+   
+UI
+===
 2. Scope
     
 3. Directive
@@ -14,5 +16,11 @@ Angular Building Blocks
     
 5. Controller
     - Function to configure the scope object
-    
-    
+
+NON-UI
+======
+6. Value
+7. Factory
+8. Service
+9. Constant
+10. Provider   
