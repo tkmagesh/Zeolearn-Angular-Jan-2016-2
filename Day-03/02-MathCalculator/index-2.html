@@ -26,18 +26,15 @@
         var mathCalculatorApp = angular.module("mathCalculatorApp", []);
         mathCalculatorApp.controller("mathCalculatorController1",function($scope){
             $scope.calculator = new MathCalculator();
-        });
-        mathCalculatorApp.controller("mathCalculatorController2",function($scope){
-            $scope.calculator = new MathCalculator();
-            //$scope.userOperation = '';
             $scope.calculate = function(){
                 $scope.calculator[$scope.userOperation]();
             };
         });
+
     </script>
 </head>
-<body ng-app="mathCalculatorApp">
-    <div class="calculator1" ng-controller="mathCalculatorController1">
+<body ng-app="mathCalculatorApp" ng-controller="mathCalculatorController1">
+    <div class="calculator1" >
         <h1>Math Calculator - 1</h1>
         <hr>
         <input type="number" ng-model="calculator.number1">
@@ -51,7 +48,7 @@
         </div>
     </div>
     <hr>
-    <div class="calculator2" ng-controller="mathCalculatorController2">
+    <div class="calculator2" >
         <h1>Math Calculator - 2</h1>
         <hr>
         <input type="number" ng-model="calculator.number1">
