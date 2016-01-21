@@ -15,15 +15,18 @@
             font-style: italic;
             font-weight: bold;
         }
+        li{
+            cursor: pointer;
+        }
     </style>
     <!--
     Use Cases
     =========
-    1. Add a bug
-    2. List the bugs
-    3. Toggle the closed status of the bug
-    4. Remove the closed bugs
-    5. Display statistics
+    1. Add a bug - done
+    2. List the bugs - done
+    3. Toggle the closed status of the bug - done
+    4. Remove the closed bugs - home work
+    5. Display statistics - home work
     6. Search for bugs
     7. Sort the bugs
     8. Improve the bug display
@@ -35,26 +38,42 @@
     -->
     <script src="scripts/vendor/angular.js"></script>
     <script>
+        var bugTrackerApp = angular.module("bugTrackerApp", []);
+        bugTrackerApp.controller("bugsController", function($scope){
+            $scope.bugs = [];
+            $scope.newBugName = '';
+            $scope.addNew = function(){
+                var newBug = {
+                    name : $scope.newBugName,
+                    isClosed : false
+                };
+                $scope.bugs.push(newBug);
+                $scope.newBugName = '';
+            };
+            $scope.toggle = function(bug){
+                bug.isClosed = !bug.isClosed;
+            };
+
+        })
     </script>
 </head>
-<body>
-    <div class="container">
+<body ng-app="bugTrackerApp">
+    <div class="container" ng-controller="bugsController">
         <h1>Bug Tracker</h1>
         <div class="row">
             <div class="six columns stats">
                 <span class="closed">2</span>
                 <span> / </span>
-                <span>5</span>
+                <span>{{bugs.length}}</span>
             </div>
         </div>
         <div class="row">
             <label for="">Bug :</label>
-            <input type="text" name="" id="">
-            <input type="button" value="Add Bug" class="button-primary">
+            <input type="text" ng-model="newBugName">
+            <input type="button" value="Add Bug" class="button-primary" ng-click="addNew()">
             <input type="button" value="Remove Closed">
             <ol>
-                <li class="closed">This is a closed bug</li>
-                <li>This is yet to be closed</li>
+               <li ng-repeat="bug in bugs" ng-click="toggle(bug)" ng-class="{closed : bug.isClosed}">{{bug}}</li>
             </ol>
         </div>
     </div>
