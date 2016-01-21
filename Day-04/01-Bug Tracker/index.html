@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bug Tracker</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <style>
+        .stats{
+            font-size: 20pt;
+        }
+        .closed{
+            color : red;
+            text-decoration: line-through;
+            font-style: italic;
+            font-weight: bold;
+        }
+    </style>
+    <!--
+    Use Cases
+    =========
+    1. Add a bug
+    2. List the bugs
+    3. Toggle the closed status of the bug
+    4. Remove the closed bugs
+    5. Display statistics
+    6. Search for bugs
+    7. Sort the bugs
+    8. Improve the bug display
+    9. Persist the bugs in the localStorage
+    10. Display 'createdAt' attribute
+    11. Persist the bugs in the server
+    Assignment
+    12. Categorize the bugs (Project, Severity)
+    -->
+    <script src="scripts/vendor/angular.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bug Tracker</h1>
+        <div class="row">
+            <div class="six columns stats">
+                <span class="closed">2</span>
+                <span> / </span>
+                <span>5</span>
+            </div>
+        </div>
+        <div class="row">
+            <label for="">Bug :</label>
+            <input type="text" name="" id="">
+            <input type="button" value="Add Bug" class="button-primary">
+            <input type="button" value="Remove Closed">
+            <ol>
+                <li class="closed">This is a closed bug</li>
+                <li>This is yet to be closed</li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>
