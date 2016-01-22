@@ -27,8 +27,8 @@
     3. Toggle the closed status of the bug - done
     4. Remove the closed bugs - done
     5. Display statistics - done
-    6. Search for bugs
-    7. Sort the bugs
+    6. Search for bugs - done
+    7. Sort the bugs - done
     8. Improve the bug display
     9. Persist the bugs in the localStorage
     10. Display 'createdAt' attribute
@@ -113,12 +113,20 @@
             <fieldset>
                 <legend>Search :</legend>
                 <span>Name :</span>
-                <input type="text" ng-model="searchBugBy">
+                <input type="text" ng-model="searchBug.name">
                 <span>Is Closed ? :</span>
-                <input type="checkbox" ng-model="searchBugStatus">
-                <input type="button" value="Show All" ng-click="searchBugStatus = undefined">
+                <input type="checkbox" ng-model="searchBug.isClosed">
+                <input type="button" value="Show All" ng-click="searchBug.isClosed = undefined">
             </fieldset>
-
+        </div>
+        <div class="row">
+            <fieldset>
+                <legend>Sort :</legend>
+                <span>By :</span>
+                <input type="text" ng-model="sortBugBy">
+                <span>Descending ? :</span>
+                <input type="checkbox" ng-model="sortBugOrder">
+            </fieldset>
         </div>
         <div class="row">
             <label for="">Bug :</label>
@@ -126,7 +134,7 @@
             <input type="button" value="Add Bug" class="button-primary" ng-click="addNew()">
             <input type="button" value="Remove Closed" ng-click="removeClosed()">
             <ol>
-               <li ng-repeat="bug in (bugs | filter:{name : searchBugBy, isClosed : searchBugStatus})"
+               <li ng-repeat="bug in (bugs | filter:searchBug | orderBy:sortBugBy:sortBugOrder)"
                    ng-click="toggle(bug)"
                    ng-class="{closed : bug.isClosed}">
                     {{bug.name}}
