@@ -40,16 +40,24 @@
     <script>
         var bugTrackerApp = angular.module("bugTrackerApp", []);
 
-        bugTrackerApp.value("Bug", function Bug(defaults){
+       /* bugTrackerApp.value("Bug", function Bug(defaults){
             this.name = defaults.name || '';
             this.isClosed = defaults.isClosed || false;
             this.toggle = function(){
                 this.isClosed = !this.isClosed;
-            }
-        });
+            };
+        });*/
+
+        function Bug(defaults){
+            this.name = defaults.name || '';
+            this.isClosed = defaults.isClosed || false;
+        }
+        Bug.prototype.toggle = function(){
+            this.isClosed = !this.isClosed;
+        };
 
 
-        bugTrackerApp.controller("bugsController", function($scope, Bug){
+        bugTrackerApp.controller("bugsController", function($scope){
 
 
             $scope.bugs = [
