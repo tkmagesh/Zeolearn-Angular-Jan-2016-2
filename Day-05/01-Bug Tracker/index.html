@@ -39,23 +39,34 @@
     <script src="scripts/vendor/angular.js"></script>
     <script>
         var bugTrackerApp = angular.module("bugTrackerApp", []);
+
+        function Bug(defaults){
+            this.name = defaults.name || '';
+            this.isClosed = defaults.isClosed || false;
+            this.toggle = function(){
+                this.isClosed = !this.isClosed;
+            }
+        }
+
+
         bugTrackerApp.controller("bugsController", function($scope){
             $scope.bugs = [
-                {name : 'Data validation error', isClosed : true},
-                {name : 'Server communication failure', isClosed : false},
-                {name : 'Object reference not set to an instance of an object', isClosed : false}
+                new Bug({name : 'Data validation error', isClosed : true}),
+                new Bug({name : 'Server communication failure', isClosed : false}),
+                new Bug({name : 'Object reference not set to an instance of an object', isClosed : false})
             ];
             $scope.newBugName = '';
             $scope.addNew = function(){
-                var newBug = {
+                var newBug = new Bug({
                     name : $scope.newBugName,
                     isClosed : false
-                };
+                });
                 $scope.bugs.push(newBug);
                 $scope.newBugName = '';
             };
             $scope.toggle = function(bug){
-                bug.isClosed = !bug.isClosed;
+                //bug.isClosed = !bug.isClosed;
+                bug.toggle();
             };
             $scope.removeClosed = function(){
                 for(var i= $scope.bugs.length -1; i>=0; i--){
