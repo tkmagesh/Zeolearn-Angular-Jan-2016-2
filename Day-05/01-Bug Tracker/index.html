@@ -110,12 +110,27 @@
             </div>
         </div>
         <div class="row">
+            <fieldset>
+                <legend>Search :</legend>
+                <span>Name :</span>
+                <input type="text" ng-model="searchBugBy">
+                <span>Is Closed ? :</span>
+                <input type="checkbox" ng-model="searchBugStatus">
+                <input type="button" value="Show All" ng-click="searchBugStatus = undefined">
+            </fieldset>
+
+        </div>
+        <div class="row">
             <label for="">Bug :</label>
             <input type="text" ng-model="newBugName">
             <input type="button" value="Add Bug" class="button-primary" ng-click="addNew()">
             <input type="button" value="Remove Closed" ng-click="removeClosed()">
             <ol>
-               <li ng-repeat="bug in bugs" ng-click="toggle(bug)" ng-class="{closed : bug.isClosed}">{{bug}}</li>
+               <li ng-repeat="bug in (bugs | filter:{name : searchBugBy, isClosed : searchBugStatus})"
+                   ng-click="toggle(bug)"
+                   ng-class="{closed : bug.isClosed}">
+                    {{bug.name}}
+                </li>
             </ol>
         </div>
     </div>
