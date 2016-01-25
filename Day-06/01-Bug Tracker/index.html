@@ -31,6 +31,19 @@
     7. Sort the bugs - done
     8. Improve the bug display - done
     9. Persist the bugs in the localStorage
+            window.localStorage
+                - key/value store
+                - key and value should be strings
+                - APIs
+                    setItem(key, value)
+                    getItem(key) //=> value
+                    removeItem(key)
+                    key(index) //=> key at index
+                    clear()
+                    length
+
+                -Hint -> use angular.toJson() and angular.fromJson() to serialize and deserialize the bug objects respectively
+
     10. Display 'createdAt' attribute
     11. Persist the bugs in the server
     Assignment
@@ -53,6 +66,7 @@
         bugTrackerApp.factory('Bug', function (defaultBugName){
             function Bug(defaults){
                 defaults = defaults || {};
+                this.id = defaults.id || 0;
                 this.name = defaults.name || defaultBugName;
                 this.isClosed = defaults.isClosed || false;
             }
@@ -79,7 +93,6 @@
                 $scope.newBugName = '';
             };
             $scope.toggle = function(bug){
-                //bug.isClosed = !bug.isClosed;
                 bug.toggle();
             };
             $scope.removeClosed = function(){
@@ -97,7 +110,8 @@
                     return bug.isClosed ? ++result : result;
                 },0);
             }
-        })
+        });
+
         bugTrackerApp.value("defaultTrimLength", 30);
 
         bugTrackerApp.filter("trimText", function(defaultTrimLength){
