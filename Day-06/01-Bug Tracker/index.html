@@ -29,7 +29,7 @@
     5. Display statistics - done
     6. Search for bugs - done
     7. Sort the bugs - done
-    8. Improve the bug display
+    8. Improve the bug display - done
     9. Persist the bugs in the localStorage
     10. Display 'createdAt' attribute
     11. Persist the bugs in the server
@@ -89,14 +89,15 @@
                         $scope.bugs.splice(i,1);
                 }
             };
-            $scope.getClosedCount = function(){
-                return $scope.bugs.reduce(function(result, bug){
-                    return bug.isClosed ? ++result : result;
-                },0);
-            };
-
         });
 
+        bugTrackerApp.filter('closedCount', function(){
+            return function(bugs){
+                return bugs.reduce(function(result, bug){
+                    return bug.isClosed ? ++result : result;
+                },0);
+            }
+        })
         bugTrackerApp.value("defaultTrimLength", 30);
 
         bugTrackerApp.filter("trimText", function(defaultTrimLength){
@@ -105,6 +106,8 @@
                 return data.length < trimLength ? data : data.substr(0,trimLength) + '...';
             };
         });
+
+
     </script>
 </head>
 <body ng-app="bugTrackerApp">
@@ -112,7 +115,7 @@
         <h1>Bug Tracker</h1>
         <div class="row">
             <div class="six columns stats">
-                <span class="closed">{{getClosedCount()}}</span>
+                <span class="closed">{{ bugs | closedCount }}</span>
                 <span> / </span>
                 <span>{{bugs.length}}</span>
             </div>
