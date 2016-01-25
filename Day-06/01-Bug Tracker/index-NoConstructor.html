@@ -50,27 +50,27 @@
 
         bugTrackerApp.value("defaultBugName", "[Default Bug]")
 
-        bugTrackerApp.factory('Bug', function (defaultBugName){
-            function Bug(defaults){
-                defaults = defaults || {};
-                this.name = defaults.name || defaultBugName;
-                this.isClosed = defaults.isClosed || false;
+        bugTrackerApp.value("bugOperations", {
+            toggle : function(){
+                this.isClosed = !this.isClosed
             }
-            Bug.prototype.toggle = function(){
-                this.isClosed = !this.isClosed;
-            };
-            return Bug;
         });
 
-        bugTrackerApp.controller("bugsController", function($scope, Bug){
+        bugTrackerApp.factory('bug', function (defaultBugName, bugOperations){
+            return function (defaults){
+               return angular.extend({}, defaults, bugOperations);
+            };
+        });
+
+        bugTrackerApp.controller("bugsController", function($scope, bug){
             $scope.bugs = [
-                new Bug({name : 'Data validation error', isClosed : true}),
-                new Bug({name : 'Server communication failure', isClosed : false}),
-                new Bug({name : 'Object reference not set to an instance of an object', isClosed : false})
+                bug({name : 'Data validation error', isClosed : true}),
+                bug({name : 'Server communication failure', isClosed : false}),
+                bug({name : 'Object reference not set to an instance of an object', isClosed : false})
             ];
             $scope.newBugName = '';
             $scope.addNew = function(){
-                var newBug = new Bug({
+                var newBug = bug({
                     name : $scope.newBugName,
                     isClosed : false
                 });
@@ -88,31 +88,12 @@
                         $scope.bugs.splice(i,1);
                 }
             };
-            //Create an array
-           /* $scope.getClosedBugs = function(){
-                var closedBugs = [];
-                for(var i=0; i<$scope.bugs.length; i++)
-                    if ($scope.bugs[i].isClosed)
-                        closedBugs.push($scope.bugs[i])
-                return closedBugs;
-            };*/
 
             $scope.getClosedBugs = function(){
                 return $scope.bugs.filter(function(bug){
                     return bug.isClosed;
                 });
             }
-
-            //Calculate the closed bug count
-
-
-           /* $scope.getClosedCount = function(){
-                var closedBugsCount = 0;
-                for(var i=0; i<$scope.bugs.length; i++)
-                    if ($scope.bugs[i].isClosed)
-                        ++closedBugsCount;
-                return closedBugsCount;
-            };*/
 
             $scope.getClosedCount = function(){
                 return $scope.bugs.reduce(function(result, bug){

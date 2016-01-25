@@ -66,7 +66,8 @@
             $scope.bugs = [
                 new Bug({name : 'Data validation error', isClosed : true}),
                 new Bug({name : 'Server communication failure', isClosed : false}),
-                new Bug({name : 'Object reference not set to an instance of an object', isClosed : false})
+                new Bug({name : 'Object reference not set to an instance of an object', isClosed : false}),
+                new Bug({name : 'This is a rather long bug name to demonstrate how the display of a bug bug title can be bad', isClosed : false}),
             ];
             $scope.newBugName = '';
             $scope.addNew = function(){
@@ -88,39 +89,22 @@
                         $scope.bugs.splice(i,1);
                 }
             };
-            //Create an array
-           /* $scope.getClosedBugs = function(){
-                var closedBugs = [];
-                for(var i=0; i<$scope.bugs.length; i++)
-                    if ($scope.bugs[i].isClosed)
-                        closedBugs.push($scope.bugs[i])
-                return closedBugs;
-            };*/
-
-            $scope.getClosedBugs = function(){
-                return $scope.bugs.filter(function(bug){
-                    return bug.isClosed;
-                });
-            }
-
-            //Calculate the closed bug count
-
-
-           /* $scope.getClosedCount = function(){
-                var closedBugsCount = 0;
-                for(var i=0; i<$scope.bugs.length; i++)
-                    if ($scope.bugs[i].isClosed)
-                        ++closedBugsCount;
-                return closedBugsCount;
-            };*/
-
             $scope.getClosedCount = function(){
                 return $scope.bugs.reduce(function(result, bug){
                     return bug.isClosed ? ++result : result;
                 },0);
             };
 
-        })
+        });
+
+        bugTrackerApp.value("defaultTrimLength", 30);
+
+        bugTrackerApp.filter("trimText", function(defaultTrimLength){
+            return function(data, trimLength){
+                trimLength = trimLength || defaultTrimLength;
+                return data.length < trimLength ? data : data.substr(0,trimLength) + '...';
+            };
+        });
     </script>
 </head>
 <body ng-app="bugTrackerApp">
@@ -161,7 +145,7 @@
                <li ng-repeat="bug in (bugs | filter:searchBug | orderBy:sortBugBy:sortBugOrder)"
                    ng-click="toggle(bug)"
                    ng-class="{closed : bug.isClosed}">
-                    {{bug.name}}
+                    {{bug.name | trimText:20}}
                 </li>
             </ol>
         </div>
