@@ -1,0 +1,29 @@
+RESTful services
+    - Data as a resource
+     URL (universal resource locator)
+     
+1. URL -> what data?
+    http://localhost/api/products
+    http://localhost/api/products/1
+    http://localhost/api/categories
+    http://localhost/api/categories/stationary
+    http://localhost/api/categories/stationary/products
+    
+2. HTTP Method - what operation?
+
+Select - GET
+Insert - POST
+Update (full) - PUT
+Update (partial) - PATCH
+Delete - DELETE
+exists - HEAD
+
+3. HTTP Status Codes - result of operation
+    200 OK
+    201 Created
+    302 Object Moved
+    404 Not Found
+    403 Forbidden
+    500 Server error
+    
+    

@@ -117,12 +117,14 @@
             return Bug;
         });
 
+        bugTrackerApp.constant('defaultStorageOption', 'sessionStorage');
+
         bugTrackerApp.config(function(bugStorageProvider){
-            bugStorageProvider.setStorageOption('sessionStorage');
+            bugStorageProvider.setStorageOption('localStorage');
         });
 
-        bugTrackerApp.provider('bugStorage', function(){
-            var _storageOption = 'localStorage';
+        bugTrackerApp.provider('bugStorage', function(defaultStorageOption){
+            var _storageOption = defaultStorageOption;
             return {
                 setStorageOption : function(storageOption){
                     _storageOption = storageOption;
