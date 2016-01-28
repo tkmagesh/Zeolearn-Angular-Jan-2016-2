@@ -87,6 +87,14 @@
             return Bug;
         });
 
+        /*Assignment
+            Create a bugService (service) that has all the server comm logic with the following methods
+                - getAll
+                - add
+                - save
+                - remove
+            Use the bugService in the controller for server communication
+        */
 
         bugTrackerApp.controller("bugsController", function($scope, $http, Bug){
             var promise = $http.get("http://localhost:3000/bugs");
@@ -114,8 +122,14 @@
                 for(var i=0; i<$scope.bugs.length; i++){
                     var bug = $scope.bugs[i];
                     if (bug.isClosed){
-                        $http.delete("http://localhost:3000/bugs/" + bug.id);
-                        $scope.bugs.splice(i,1);
+                        $http
+                            .delete("http://localhost:3000/bugs/" + bug.id)
+                            .then((function(index){
+                                return function(){
+                                    $scope.bugs.splice(index,1);
+                                }
+                            })(i));
+
                     }
                 }
             };

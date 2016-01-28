@@ -1,16 +1,28 @@
 {
   "bugs": [
     {
-      "id": 2,
-      "name": "Server communication distrupts",
+      "id": 4,
+      "name": "Bug - 1",
       "isClosed": false,
-      "createdAt": "2016-01-27T17:26:03.684Z"
+      "createdAt": "2016-01-28T18:50:54.784Z"
     },
     {
-      "id": 3,
-      "name": "Unable to add new bugs",
+      "id": 5,
+      "name": "Bug - 2",
       "isClosed": false,
-      "createdAt": "2016-01-27T17:26:12.362Z"
+      "createdAt": "2016-01-28T18:50:56.725Z"
+    },
+    {
+      "id": 6,
+      "name": "Bug - 3",
+      "isClosed": false,
+      "createdAt": "2016-01-28T18:50:59.386Z"
+    },
+    {
+      "id": 7,
+      "name": "Bug - 4",
+      "isClosed": false,
+      "createdAt": "2016-01-28T18:51:01.405Z"
     }
   ]
 }
