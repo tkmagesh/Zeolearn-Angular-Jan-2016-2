@@ -1,7 +1,22 @@
 {
-    "bugs" : [
-        {"id":1,"name":"Data validation failure","isClosed":false,"createdAt":"2016-01-27T17:31:41.478Z"},
-        {"id":2,"name":"Server communication distrupts","isClosed":false,"createdAt":"2016-01-27T17:26:03.684Z"},
-        {"id":3,"name":"Unable to add new bugs","isClosed":false,"createdAt":"2016-01-27T17:26:12.362Z"}
-    ]
+  "bugs": [
+    {
+      "id": 1,
+      "name": "Data validation failure",
+      "isClosed": false,
+      "createdAt": "2016-01-27T17:31:41.478Z"
+    },
+    {
+      "id": 2,
+      "name": "Server communication distrupts",
+      "isClosed": false,
+      "createdAt": "2016-01-27T17:26:03.684Z"
+    },
+    {
+      "id": 3,
+      "name": "Unable to add new bugs",
+      "isClosed": false,
+      "createdAt": "2016-01-27T17:26:12.362Z"
+    }
+  ]
 }
