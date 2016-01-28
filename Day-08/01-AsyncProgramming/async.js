@@ -42,7 +42,7 @@ var addAsync = (function(){
             console.log("[Provider] returning the result");
             _subscriptions.forEach(function(subscriptionFn){
                 subscriptionFn(result);
-            })
+            });
         },5000);
     }
     function addSubscription(subscriptionFn){
@@ -54,6 +54,19 @@ var addAsync = (function(){
     }
 })();
 
+/*Async - Promise*/
+
+var addAsync = function addAsync(x,y){
+    console.log("[Provider] processing ", x, " and ", y);
+    var promise = new Promise(function(resolve, reject){
+        setTimeout(function(){
+            var result = x + y;
+            console.log("[Provider] returning the result");
+            resolve(result);
+        },5000);
+    });
+    return promise;
+}
 
 
 
