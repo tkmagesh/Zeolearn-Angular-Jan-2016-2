@@ -68,5 +68,14 @@ var addAsync = function addAsync(x,y){
     return promise;
 }
 
-
-
+/*Async - Deferred*/
+var addAsync = function addAsync(x,y){
+    console.log("[Provider] processing ", x, " and ", y);
+    var deferred = Promise.defer();
+    setTimeout(function(){
+        var result = x + y;
+        console.log("[Provider] returning the result");
+        deferred.resolve(result);
+    },5000);
+    return deferred.promise;
+}

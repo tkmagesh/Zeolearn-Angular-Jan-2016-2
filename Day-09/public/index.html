@@ -96,23 +96,39 @@
             Use the bugService in the controller for server communication
         */
 
-        bugTrackerApp.service("bugService", function($http, Bug){
+        bugTrackerApp.service("bugService", function($http, Bug, $q){
 
-            this.getAll = function(onResult){
-                var promise = $http.get("http://localhost:3000/bugs");
-                promise.then(function(response){
+           /* this.getAll = function(){
+                var deferred =$q.defer();
+
+                var httpPromise = $http.get("http://localhost:3000/bugs");
+                httpPromise.then(function(response){
                     var result = response.data.map(function(bugData){
                         return new Bug(bugData);
                     });
-                    onResult(result);
+                    deferred.resolve(result);
                 });
+
+                return deferred.promise;
+            };*/
+
+             this.getAll = function(){
+                var httpPromise = $http.get("http://localhost:3000/bugs");
+                var resultPromise = httpPromise.then(function(response){
+                    var result = response.data.map(function(bugData){
+                        return new Bug(bugData);
+                    });
+                    return result;
+                });
+                return resultPromise;
             };
         });
 
 
         bugTrackerApp.controller("bugsController", function($scope, $http, Bug, bugService){
 
-            bugService.getAll(function(bugs){
+            var servicePromise = bugService.getAll();
+            servicePromise.then(function(bugs){
                 $scope.bugs = bugs;
             });
 
