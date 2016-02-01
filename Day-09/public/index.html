@@ -112,52 +112,59 @@
                 return deferred.promise;
             };*/
 
-             this.getAll = function(){
-                var httpPromise = $http.get("http://localhost:3000/bugs");
-                var resultPromise = httpPromise.then(function(response){
-                    var result = response.data.map(function(bugData){
-                        return new Bug(bugData);
-                    });
-                    return result;
+            this.getAll = function(){
+                return $http
+                    .get("http://localhost:3000/bugs")
+                    .then(function(response){
+                        return response.data.map(function(bugData){
+                            return new Bug(bugData);
+                        });
                 });
-                return resultPromise;
             };
+            this.save = function(bug){
+                return $http
+                        .put("http://localhost:3000/bugs/" + bug.id, bug)
+                        .then(function(bugData){
+                            return new Bug(bugData);
+                        });
+            };
+            this.add = function(bugName){
+                return $http
+                    .post("http://localhost:3000/bugs", new Bug({name : bugName}))
+                    .then(function(response){
+                        return new Bug(response.data);
+                    });
+            };
+
+            this.remove = function(bug){
+                 return $http.delete("http://localhost:3000/bugs/" + bug.id);
+            }
         });
 
 
         bugTrackerApp.controller("bugsController", function($scope, $http, Bug, bugService){
 
-            var servicePromise = bugService.getAll();
-            servicePromise.then(function(bugs){
+            bugService.getAll().then(function(bugs){
                 $scope.bugs = bugs;
             });
 
             $scope.toggle = function(bug){
                 bug.toggle();
-                $http.put("http://localhost:3000/bugs/" + bug.id, bug);
+                bugService.save(bug);
             };
 
             $scope.addNew = function(newBugName){
-                var newBug = new Bug({name : newBugName});
-                $http
-                    .post("http://localhost:3000/bugs", newBug)
-                    .then(function(response){
-                        $scope.bugs.push(new Bug(response.data));
-                    });
+                bugService.add(newBugName).then(function(bug){
+                    $scope.bugs.push(bug);
+                });
             };
 
             $scope.removeClosed = function(){
                 for(var i=0; i<$scope.bugs.length; i++){
                     var bug = $scope.bugs[i];
                     if (bug.isClosed){
-                        $http
-                            .delete("http://localhost:3000/bugs/" + bug.id)
-                            .then((function(index){
-                                return function(){
-                                    $scope.bugs.splice(index,1);
-                                }
-                            })(i));
-
+                        bugService.remove(bug);
+                        $scope.bugs.splice(i,1);
                     }
                 }
             };
@@ -181,9 +188,9 @@
         <h1>Bug Tracker</h1>
         <div class="row">
             <div class="six columns stats">
-                <span class="closed">{{ bugs.list | closedCount }}</span>
+                <span class="closed">{{ bugs | closedCount }}</span>
                 <span> / </span>
-                <span>{{bugs.list.length}}</span>
+                <span>{{bugs.length}}</span>
             </div>
         </div>
         <div class="row">
