@@ -1,0 +1,39 @@
+1. Package.json (manifest)
+    name, version, author, keywords, description, liscence, repository
+    dependencies
+        dev
+        run
+        
+        npm init
+        npm install
+        npm install <pkg> [--save]
+        
+2. jasmine (jasmine.github.io)
+    - test framework
+    - apis to organize (describe, it)
+    - api to assertion (expect)
+    - mock (jasmine spy)
+    
+3. karma
+    - test runner
+    - run the tests in different browsers
+    - continuous execution of tests on file change
+    
+4. protractor
+    - end-to-end testing
+    - wrapper on selenium web driver
+    - angular specific
+    
+5. bower
+    - client-side dependency
+    
+    
+angular-seed
+
+    
+    
+
+
+
+    
+    
