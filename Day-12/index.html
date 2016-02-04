@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+    <script>
+        var myApp = angular.module("myApp", []);
+        myApp.service("counterService", function(){
+            this.value = 0;
+            this.increment = function(){
+                ++this.value;
+            };
+            this.decrement = function(){
+                --this.value;
+            }
+        });
+
+        myApp.controller("counterController1", function($scope, counterService){
+            $scope.name = "Controller - 1";
+            $scope.counter = counterService;
+        });
+        myApp.controller("counterController2", function($scope, counterService){
+            $scope.name = "Controller - 2";
+            $scope.counter = counterService;
+        });
+    </script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="counterController1">
+        <h3>{{name}}</h3>
+        <input type="button" value="Increment" ng-click="counter.increment()">
+        <span>{{counter.value}}</span>
+        <input type="button" value="Decrement" ng-click="counter.decrement()">
+    </div>
+    <div ng-controller="counterController2">
+       <h3>{{name}}</h3>
+        <input type="button" value="Increment" ng-click="counter.increment()">
+        <span>{{counter.value}}</span>
+        <input type="button" value="Decrement" ng-click="counter.decrement()">
+    </div>
+</body>
+</html>

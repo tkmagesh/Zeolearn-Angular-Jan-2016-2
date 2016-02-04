@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Directives</title>
+    <script src="jquery-1.12.0.js"></script>
+    <script src="angular.js"></script>
+    <script>
+        var myApp = angular.module("myApp", []);
+        myApp.directive('helloWorld', function(){
+            return {
+                restrict : 'A',
+                scope : {
+                    /*text : '@'*/
+                    text : '=',
+                    onclear : '&'
+                },
+                templateUrl : 'simpleDirectiveTemplate.html',
+                controller : function($scope, $http){
+                    console.log($scope, $http);
+                },
+                replace : true,
+                link : function($scope, $element, $attr){
+                    console.dir($element);
+                    $scope.$watch("text", function(newValue, oldValue){
+                        $element.html(newValue);
+                    })
+                    $element.on("click", function(){
+                        $scope.$apply(function(){
+                            $scope.text = '';
+                            $scope.onclear();
+                        })
+                    });
+                }
+            }
+        });
+        myApp.controller("myController", function($scope){
+            $scope.message = 'This is from myController';
+            $scope.displayClearMessage = function(){
+                console.log('the message is cleared');
+            };
+        });
+    </script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myController">
+        <input type="text" ng-model="message"/>
+        <input type="button" value="Clear Message" ng-click="message = ''">
+        <div hello-world text='message' onclear="displayClearMessage()"></div>
+    </div>
+
+</body>
+</html>
